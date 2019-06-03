@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">induceSmileChallenges</string>
+
+    <string-array name="names">
+        <item>Select an option</item>
+        <item>BMW</item>
+        <item>WolksWagen</item>
+        <item>Mercedes</item>
+        <item>Renault</item>
+        <item>Hyundai</item>
+        <item>Jaguar</item>
+        <item>Chevrolet</item>
+        <item>Ferrari</item>
+        <item>Bugatti</item>
+    </string-array>
+</resources>
