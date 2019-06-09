@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import app.com.inducesmilechallenges.dayEightChallenge.DayEightFirstActivity;
 import app.com.inducesmilechallenges.dayOneChallenge.DayOneFirstActivity;
+import app.com.inducesmilechallenges.daySevenChallenge.DaySevenActivity;
 import app.com.inducesmilechallenges.dayTwoChallenge.DayTwoFirstActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -58,6 +60,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.button2 :
                 Intent i2 = new Intent(MainActivity.this, DayTwoFirstActivity.class);
                 startActivity(i2);
+                break;
+            case R.id.button3 :
+                Intent i3 = new Intent(MainActivity.this, DaySevenActivity.class);
+                startActivity(i3);
+                break;
+            case R.id.button4 :
+                Intent i4 = new Intent(MainActivity.this, DayEightFirstActivity.class);
+                startActivity(i4);
                 break;
         }
     }
