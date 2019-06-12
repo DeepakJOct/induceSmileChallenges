@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">induceSmileChallenges</string>
+    <string name="hide_image">Hide Image</string>
+    <string name="show_image">Show Image</string>
+    <string name="login_now">Login now</string>
+    <string name="enter_your_email">Enter your email</string>
+    <string name="enter_password">Enter password</string>
+    <string name="day_eight_challenge">Day Eight Challenge</string>
+    <string name="logout">Logout</string>
+    <string name="save_my_details">Save My Details</string>
+    <string name="login">Login</string>
 
     <string-array name="names">
         <item>Select an option</item>
