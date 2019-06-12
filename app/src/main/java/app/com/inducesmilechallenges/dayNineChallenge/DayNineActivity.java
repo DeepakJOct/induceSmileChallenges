@@ -2,7 +2,6 @@ package app.com.inducesmilechallenges.dayNineChallenge;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -16,15 +15,23 @@ public class DayNineActivity extends AppCompatActivity {
     TextView textView;
     Spinner spinner;
     SQLiteDatabase myDatabase;
+    DatabaseHelper mDatabaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_nine);
-        createDatabaseTable();
 
         textView = findViewById(R.id.tv_head);
         spinner = findViewById(R.id.spinner);
+
+        mDatabaseHelper = new DatabaseHelper(this);
+        mDatabaseHelper.insertData("Hyundai");
+        mDatabaseHelper.insertData("Audi");
+        mDatabaseHelper.insertData("Ford");
+        mDatabaseHelper.insertData("Ferrari");
+        mDatabaseHelper.insertData("Jaguar");
+        mDatabaseHelper.insertData("Mercedes");
 
         String[] carBrands = getData();
 
@@ -32,56 +39,22 @@ public class DayNineActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
 
 
-
     }
 
     private String[] getData() {
-        String tableName = "cars";
-        String selectQuery = "SELECT * FROM " + tableName;
-        Cursor res = myDatabase.rawQuery(selectQuery, null);
-        String[] data = null;
-        if(res.moveToFirst()) {
-            do{
-                for(int i = 0; i < res.getCount(); i++) {
-                    data[i] = res.getString(i);
-                }
-            } while(res.moveToNext());
+        Cursor res = mDatabaseHelper.getAllData();
+        String[] data = new String[res.getCount()];
+        if (res.getCount() == 0) {
+            //show message
+            finish();
+        } else {
+                do {
+                    for (int i = 0; i < res.getCount(); i++) {
+                        data[i - 1] = res.getString(i);
+                    }
+                } while (res.moveToNext());
         }
         myDatabase.close();
         return data;
-     }
-
-    public void createDatabaseTable() {
-        myDatabase = openOrCreateDatabase("CarBrands", MODE_PRIVATE, null);
-        myDatabase.execSQL(
-                "CREATE TABLE IF NOT EXISTS cars (\n" +
-                        " id int NOT NULL,\n" +
-                        " brand varchar(200) NOT NULL" + ");"
-        );
-
-        myDatabase.execSQL("INSERT INTO cars \n" +
-                "(brand)\n" +
-                "VALUES \n" +
-                "('Mercedes');");
-        myDatabase.execSQL("INSERT INTO cars \n" +
-                "(brand)\n" +
-                "VALUES \n" +
-                "('Audi');");
-        myDatabase.execSQL("INSERT INTO cars \n" +
-                "(brand)\n" +
-                "VALUES \n" +
-                "('Ford');");
-        myDatabase.execSQL("INSERT INTO cars \n" +
-                "(brand)\n" +
-                "VALUES \n" +
-                "('Ferrari');");
-        myDatabase.execSQL("INSERT INTO cars \n" +
-                "(brand)\n" +
-                "VALUES \n" +
-                "(Chevrolet);");
-        myDatabase.execSQL("INSERT INTO cars \n" +
-                "(brand)\n" +
-                "VALUES \n" +
-                "('Bugatti');");
     }
 }
