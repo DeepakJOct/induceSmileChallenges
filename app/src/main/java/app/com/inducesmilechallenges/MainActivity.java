@@ -6,7 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import app.com.inducesmilechallenges.dayFiveChallenge.DayFiveFirstActivity;
+import app.com.inducesmilechallenges.dayFourChallenge.DayFourFirstActivity;
+import app.com.inducesmilechallenges.dayNineChallenge.DayNineActivity;
 import app.com.inducesmilechallenges.dayOneChallenge.DayOneFirstActivity;
+import app.com.inducesmilechallenges.daySixChallenge.DaySixActivity;
+import app.com.inducesmilechallenges.dayThreeChallenge.DayThreeFirstActivity;
 import app.com.inducesmilechallenges.dayTwoChallenge.DayTwoFirstActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -51,15 +56,45 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.button :
+            case R.id.button:
                 Intent i1 = new Intent(MainActivity.this, DayOneFirstActivity.class);
                 startActivity(i1);
                 break;
-            case R.id.button2 :
+            case R.id.button2:
                 Intent i2 = new Intent(MainActivity.this, DayTwoFirstActivity.class);
                 startActivity(i2);
+                break;
+            case R.id.button3:
+                Intent i3 = new Intent(MainActivity.this, DayThreeFirstActivity.class);
+                startActivity(i3);
+                break;
+            case R.id.button4:
+                Intent i4 = new Intent(MainActivity.this, DayFourFirstActivity.class);
+                startActivity(i4);
+                break;
+            case R.id.button9:
+                Intent i5 = new Intent(MainActivity.this, DayFiveFirstActivity.class);
+                startActivity(i5);
+                break;
+            case R.id.button10:
+                Intent i6 = new Intent(MainActivity.this, DaySixActivity.class);
+                startActivity(i6);
+                break;
+            case R.id.button11:
+                Intent i7 = new Intent(MainActivity.this, DayNineActivity.class);
+                startActivity(i7);
                 break;
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        buttonDayOne.setText("Day 1 Challenge - Random Numbers");
+        buttonDayTwo.setText("Day 2 Challenge - Email Password");
+        buttonDayThree.setText("Day 3 Challenge - Spinner Selection");
+        buttonDayFour.setText("Day 4 Challenge - Seekbar");
+        buttonDayFive.setText("Day 5 Challenge - RadioGroup");
+        buttonDaySix.setText("Day 6 Challenge - Checkbox");
+    }
 }

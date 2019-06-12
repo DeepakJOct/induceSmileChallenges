@@ -9,8 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import app.com.inducesmilechallenges.R;
 import butterknife.BindView;
@@ -23,6 +25,8 @@ public class DayThreeFirstActivity extends AppCompatActivity {
     Spinner spinner;
     @BindView(R.id.textView)
     TextView textView;
+    @BindView(R.id.button)
+    Button button;
 
     private String selectedCarBrand;
 
@@ -32,7 +36,6 @@ public class DayThreeFirstActivity extends AppCompatActivity {
         setContentView(R.layout.activity_day_three_first);
 
         ButterKnife.bind(this);
-        onButtonClick();
 
         String[] carsArray = getResources().getStringArray(R.array.names);
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, carsArray) {
@@ -63,9 +66,7 @@ public class DayThreeFirstActivity extends AppCompatActivity {
                 if (position == 0) {
                     return;
                 }
-
-                selectedCarBrand = adapterView.getItemAtPosition(position - 1).toString();
-
+                selectedCarBrand = adapterView.getItemAtPosition(position).toString();
             }
 
             @Override
@@ -78,6 +79,11 @@ public class DayThreeFirstActivity extends AppCompatActivity {
     @OnClick(R.id.button)
     void onButtonClick() {
         //TODO implement
-        textView.setText("The selected car brand is " + selectedCarBrand.toUpperCase());
+        if (selectedCarBrand == null) {
+            Toast.makeText(this, "Please select an option", Toast.LENGTH_SHORT).show();
+            return;
+        } else {
+            textView.setText("The selected car brand is " + selectedCarBrand.toUpperCase());
+        }
     }
 }

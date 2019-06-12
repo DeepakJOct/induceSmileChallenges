@@ -9,7 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".dayThreeChallenge.DayThreeFirstActivity"></activity>
+        <activity android:name=".dayNineChallenge.DayNineActivity"></activity>
+        <activity android:name=".daySixChallenge.DaySixActivity" />
+        <activity android:name=".dayFiveChallenge.DayFiveFirstActivity" />
+        <activity android:name=".dayFourChallenge.DayFourFirstActivity" />
+        <activity android:name=".dayThreeChallenge.DayThreeFirstActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
