@@ -49,24 +49,6 @@ public class LoginDialogFragment extends DialogFragment {
 
         //validations
 
-        if(TextUtils.isEmpty(etUsername.getText()) || TextUtils.isEmpty(etPassword.getText())) {
-            Toast.makeText(getActivity(), "Please fill in the details", Toast.LENGTH_SHORT).show();
-        } else {
-
-            if(!etUsername.getText().toString().contains("@")) {
-                etUsername.setError("Please enter a valid email");
-            } else {
-                mEmail = etUsername.getText().toString();
-            }
-
-            if(etPassword.getText().toString().length() < 3) {
-                etPassword.setError("Password must be at least 6 characters long");
-            } else {
-                mPassword = etPassword.getText().toString();
-            }
-
-        }
-
         /*//validations
         if(TextUtils.isEmpty(etUsername.getText())) {
             etUsername.setError("Email must not be empty");
@@ -92,18 +74,39 @@ public class LoginDialogFragment extends DialogFragment {
             e.printStackTrace();
         }
 
-        Log.d("credentials-->", existingEmail + " " + existingPassword);
+        Log.d("credentials-->", "Existing Email" + existingEmail + " Existing Pass" + existingPassword);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(!TextUtils.equals(mEmail, existingEmail) || !TextUtils.equals(mPassword, existingPassword)) {
-                    Toast.makeText(getContext(), "Invalid login credentials", Toast.LENGTH_LONG).show();
+                if(TextUtils.isEmpty(etUsername.getText()) || TextUtils.isEmpty(etPassword.getText())) {
+                    Toast.makeText(getActivity(), "Please fill in the details", Toast.LENGTH_SHORT).show();
                 } else {
+
+                    if(!etUsername.getText().toString().contains("@")) {
+                        etUsername.setError("Please enter a valid email");
+                    } else {
+                        mEmail = etUsername.getText().toString();
+                    }
+
+                    if(etPassword.getText().toString().length() < 3) {
+                        etPassword.setError("Password must be at least 6 characters long");
+                    } else {
+                        mPassword = etPassword.getText().toString();
+                    }
+
+                }
+
+                Log.d("credentials-->", "Entered Email= " + mEmail + " Entered Pass= " + mPassword );
+
+
+                if(mEmail.equalsIgnoreCase(existingEmail) && mPassword.equalsIgnoreCase(existingPassword)) {
                     Intent i = new Intent(getActivity(), DayEightSecondActivity.class);
                     i.putExtra("Username", mEmail);
                     startActivity(i);
+                } else {
+                    Toast.makeText(getContext(), "Invalid Credentials. If statement failed.", Toast.LENGTH_SHORT).show();
                 }
 
                 getDialog().dismiss();
