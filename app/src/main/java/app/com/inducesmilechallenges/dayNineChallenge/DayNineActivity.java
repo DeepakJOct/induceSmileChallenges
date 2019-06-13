@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -14,7 +15,6 @@ public class DayNineActivity extends AppCompatActivity {
 
     TextView textView;
     Spinner spinner;
-    SQLiteDatabase myDatabase;
     DatabaseHelper mDatabaseHelper;
 
     @Override
@@ -25,6 +25,8 @@ public class DayNineActivity extends AppCompatActivity {
         textView = findViewById(R.id.tv_head);
         spinner = findViewById(R.id.spinner);
 
+        textView.setText("Fetching data into spinner from SQLite Database.");
+
         mDatabaseHelper = new DatabaseHelper(this);
         mDatabaseHelper.insertData("Hyundai");
         mDatabaseHelper.insertData("Audi");
@@ -32,10 +34,12 @@ public class DayNineActivity extends AppCompatActivity {
         mDatabaseHelper.insertData("Ferrari");
         mDatabaseHelper.insertData("Jaguar");
         mDatabaseHelper.insertData("Mercedes");
+        mDatabaseHelper.close();
 
-        String[] carBrands = getData();
+//        String[] carBrands = getData();
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, carBrands);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, getData());
+        adapter.notifyDataSetChanged();
         spinner.setAdapter(adapter);
 
 
@@ -43,18 +47,16 @@ public class DayNineActivity extends AppCompatActivity {
 
     private String[] getData() {
         Cursor res = mDatabaseHelper.getAllData();
-        String[] data = new String[res.getCount()];
-        if (res.getCount() == 0) {
-            //show message
-            finish();
-        } else {
-                do {
-                    for (int i = 0; i < res.getCount(); i++) {
-                        data[i - 1] = res.getString(i);
-                    }
-                } while (res.moveToNext());
+        Log.d("CursorResult--> ", res.toString());
+        String[] data = new String[(res.getCount())];
+        int i = 0;
+        res.moveToFirst();
+        while(!res.isAfterLast()) {
+            data[i] = res.getString(1);
+            i++;
+            res.moveToNext();
         }
-        myDatabase.close();
+        res.close();
         return data;
     }
 }

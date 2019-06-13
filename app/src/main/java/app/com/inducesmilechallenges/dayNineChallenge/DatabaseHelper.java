@@ -27,20 +27,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS" + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 
-    public boolean insertData(String brand) {
+    public void insertData(String brand) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2, brand);
-        long result = db.insert(TABLE_NAME, null, contentValues);
-
-        if (result == -1)
-            return false;
-        else
-            return true;
+        db.insert(TABLE_NAME, null, contentValues);
+        db.close();
     }
 
     public Cursor getAllData() {
